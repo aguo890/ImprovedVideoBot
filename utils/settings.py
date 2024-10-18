@@ -1,11 +1,13 @@
+import os
 import re
 from pathlib import Path
+import sys
 from typing import Dict, Tuple
 
 import toml
 from rich.console import Console
 
-from utils.console import handle_input
+from utils.console import handle_input, print_step, print_substep
 
 console = Console()
 config = dict  # autocomplete
@@ -164,6 +166,136 @@ If you see any prompts, that means that you have unset/incorrectly set variables
         toml.dump(config, f)
     return config
 
+def check_AllEnvi():
+    try:
+        print_step(f"Checking Environment Variables...")
+        print_substep("Checking REDDIT_CLIENT_ID")
+        if check_Envi("REDDIT_CLIENT_ID"):
+            console.print("[green]REDDIT_CLIENT_ID is set.")
+        else:
+            console.print("[red]REDDIT_CLIENT_ID is not set...")
+            if set_Envi("REDDIT_CLIENT_ID"):
+                console.print("[green]REDDIT_CLIENT_ID is set.")
+            else:
+                console.print("[red bold]No matching variable in set_Envi.")
+
+        print()
+        print_substep("Checking REDDIT_CLIENT_SECRET")
+        if check_Envi("REDDIT_CLIENT_SECRET"):
+            console.print("[green]REDDIT_CLIENT_SECRET is set.")
+        else:
+            console.print("[red]REDDIT_CLIENT_SECRET is not set...")
+            if set_Envi("REDDIT_CLIENT_SECRET"):
+                console.print("[green]REDDIT_CLIENT_SECRET is set.")
+            else:
+                console.print("[red bold]No matching variable in set_Envi.")
+
+        print()
+        print_substep("Checking REDDIT_USER")
+        if check_Envi("REDDIT_USER"):
+            console.print("[green]REDDIT_USER is set.")
+        else:
+            console.print("[red]REDDIT_USER is not set...")
+            if set_Envi("REDDIT_USER"):
+                console.print("[green]REDDIT_USER is set.")
+            else:
+                console.print("[red bold]No matching variable in set_Envi.")
+
+        print()
+        print_substep("Checking REDDIT_PASSWORD")
+        if check_Envi("REDDIT_PASSWORD"):
+            console.print("[green]REDDIT_PASSWORD is set.")
+        else:
+            console.print("[red]REDDIT_PASSWORD is not set...")
+            if set_Envi("REDDIT_PASSWORD"):
+                console.print("[green]REDDIT_PASSWORD is set.")
+            else:
+                console.print("[red bold]No matching variable in set_Envi.")
+
+    except:
+        print("")
+        
+def check_Envi(variable):
+    try:
+        os.environ[variable]
+        return True
+    except:
+        return False
+    
+def set_Envi(variable):
+    match variable:
+        case "REDDIT_CLIENT_ID":
+            console.print("[green]Please input your Reddit Client ID.")
+            console.print("[white]REDDIT_CLIENT_ID:", end="")
+            user_input = input("").strip()
+            if user_input == "":
+                console.print("[red bold]Client ID can not be blank.")
+                return False
+            try:
+                command = f'[Environment]::SetEnvironmentVariable(\\"{variable}\\", \\"{user_input}\\", \\"Machine\\")'
+                os.system(f'powershell -Command "{command}"')
+                return True
+            except:
+                Console.print("[red bold]Failed to set Reddit Client ID " + variable + ".")
+                return False
+            
+        case "REDDIT_CLIENT_SECRET":
+            console.print("[green]Please input your Reddit Client Secret.")
+            console.print("[white]REDDIT_CLIENT_SECRET:", end="")
+            user_input = input("").strip()
+            if user_input == "":
+                console.print("[red bold]Client ID can not be blank.")
+                return False
+            try:
+                command = f'[Environment]::SetEnvironmentVariable(\\"{variable}\\", \\"{user_input}\\", \\"Machine\\")'
+                os.system(f'powershell -Command "{command}"')
+                return True
+            except:
+                Console.print("[red bold]Failed to set Reddit Client Secret " + variable + ".")
+                return False
+            
+        case "REDDIT_USER":
+            console.print("[green]Please input your Reddit Username.")
+            console.print("[white]REDDIT_USER:", end="")
+            user_input = input("").strip()
+            if user_input == "":
+                console.print("[red bold]Client ID can not be blank.")
+                return False
+            try:
+                command = f'[Environment]::SetEnvironmentVariable(\\"{variable}\\", \\"{user_input}\\", \\"Machine\\")'
+                os.system(f'powershell -Command "{command}"')
+                return True
+            except:
+                Console.print("[red bold]Failed to set Reddit Username " + variable + ".")
+                return False
+            
+        case "REDDIT_PASSWORD":
+            console.print("[green]Please input your Reddit Password.")
+            console.print("[white]REDDIT_PASSWORD:", end="")
+            user_input = input("").strip()
+            if user_input == "":
+                console.print("[red bold]Client ID can not be blank.")
+                return False
+            try:
+                command = f'[Environment]::SetEnvironmentVariable(\\"{variable}\\", \\"{user_input}\\", \\"Machine\\")'
+                os.system(f'powershell -Command "{command}"')
+                return True
+            except:
+                Console.print("[red bold]Failed to set Reddit Password " + variable + ".")
+                return False
+            
+
+        case _:
+            console.print("[red bold]No matching variable in set_Envi.")
+            return False
+
+def get_Envi(variable):
+    try:
+        result = os.getenv[variable]
+        return result
+    except:
+        error = f"[red bold]Failed to retrieve Environment Variable " + variable + "."
+        return error
 
 if __name__ == "__main__":
     directory = Path().absolute()

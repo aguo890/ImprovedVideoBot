@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import math
+import os
 import sys
 from os import name
 from pathlib import Path
@@ -90,6 +91,8 @@ if __name__ == "__main__":
         f"{directory}/utils/.config.template.toml", f"{directory}/config.toml"
     )
     config is False and sys.exit()
+
+    settings.check_AllEnvi()
 
     if (
         not settings.config["settings"]["tts"]["tiktok_sessionid"]
