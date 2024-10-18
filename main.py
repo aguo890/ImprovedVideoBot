@@ -25,7 +25,7 @@ from video_creation.final_video import make_final_video
 from video_creation.screenshot_downloader import get_screenshots_of_reddit_posts
 from video_creation.voices import save_text_to_mp3
 
-__VERSION__ = "3.3.0"
+__VERSION__ = "1.0.c"
 
 print(
     """
@@ -38,7 +38,7 @@ print(
 """
 )
 print_markdown(
-    "### Thanks for using this tool! Feel free to contribute to this project on GitHub! If you have any questions, feel free to join my Discord server or submit a GitHub issue. You can find solutions to many common problems in the documentation: https://reddit-video-maker-bot.netlify.app/"
+    "### Thanks for using this tool! This is a communinty version of the original Reddit Video Maker! - https://github.com/elebumm/RedditVideoMakerBot"
 )
 checkversion(__VERSION__)
 

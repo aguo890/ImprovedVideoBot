@@ -136,7 +136,7 @@ Overwrite it?(y/n)"""
                 return False
     except FileNotFoundError:
         console.print(
-            f"""[blue]Couldn't find {config_file}
+            f"""[red bold]Couldn't find {config_file}
 Creating it now."""
         )
         try:
