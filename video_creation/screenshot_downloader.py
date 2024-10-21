@@ -71,10 +71,13 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
 
     screenshot_num: int
     with sync_playwright() as p:
-        print_substep("Launching Headless Browser...")
+        if settings.config["settings"]["browser"]["run_browser_headless"]:
+            print_substep("Launching Headless Browser...")
+        else:
+            print_substep("Launching Browser...")
 
         browser = p.chromium.launch(
-            headless=True
+            headless=settings.config["settings"]["browser"]["run_browser_headless"]
         )  # headless=False will show the browser for debugging purposes
         # Device scale factor (or dsf for short) allows us to increase the resolution of the screenshots
         # When the dsf is 1, the width of the screenshot is 600 pixels
@@ -100,8 +103,8 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
         page.set_viewport_size(ViewportSize(width=1920, height=1080))
         page.wait_for_load_state()
 
-        page.locator(f'input[name="username"]').fill(settings.config["reddit"]["creds"]["username"])
-        page.locator(f'input[name="password"]').fill(settings.config["reddit"]["creds"]["password"])
+        page.locator(f'input[name="username"]').fill(settings.get_Envi("REDDIT_USER"))
+        page.locator(f'input[name="password"]').fill(settings.get_Envi("REDDIT_PASSWORD"))
         page.get_by_role("button", name="Log In").click()
         page.wait_for_timeout(5000)
 

@@ -212,6 +212,17 @@ def check_AllEnvi():
             else:
                 console.print("[red bold]No matching variable in set_Envi.")
 
+        print()
+        print_substep("Checking TIKTOK_SESSIONID")
+        if check_Envi("TIKTOK_SESSIONID"):
+            console.print("[green]TIKTOK_SESSIONID is set.")
+        else:
+            console.print("[red]TIKTOK_SESSIONID is not set...")
+            if set_Envi("TIKTOK_SESSIONID"):
+                console.print("[green]TIKTOK_SESSIONID is set.")
+            else:
+                console.print("[red bold]No matching variable in set_Envi.")
+
     except:
         print("")
         
@@ -284,6 +295,21 @@ def set_Envi(variable):
                 Console.print("[red bold]Failed to set Reddit Password " + variable + ".")
                 return False
             
+        case "TIKTOK_SESSIONID":
+            console.print("[green]Please input your TikTok SessionID.")
+            console.print("[white]TIKTOK_SESSIONID:", end="")
+            user_input = input("").strip()
+            if user_input == "":
+                console.print("[red bold]TikTok SessionID can not be blank.")
+                return False
+            try:
+                command = f'[Environment]::SetEnvironmentVariable(\\"{variable}\\", \\"{user_input}\\", \\"Machine\\")'
+                os.system(f'powershell -Command "{command}"')
+                return True
+            except:
+                Console.print("[red bold]Failed to set TikTok SessionID " + variable + ".")
+                return False
+            
 
         case _:
             console.print("[red bold]No matching variable in set_Envi.")
@@ -291,7 +317,7 @@ def set_Envi(variable):
 
 def get_Envi(variable):
     try:
-        result = os.getenv[variable]
+        result = os.environ[f"{variable}"]
         return result
     except:
         error = f"[red bold]Failed to retrieve Environment Variable " + variable + "."

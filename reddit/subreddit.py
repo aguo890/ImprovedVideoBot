@@ -25,17 +25,17 @@ def get_subreddit_threads(POST_ID: str):
         print("\nEnter your two-factor authentication code from your authenticator app.\n")
         code = input("> ")
         print()
-        pw = settings.config["reddit"]["creds"]["password"]
+        pw = settings.get_Envi("REDDIT_PASSWORD")
         passkey = f"{pw}:{code}"
     else:
-        passkey = settings.config["reddit"]["creds"]["password"]
-    username = settings.config["reddit"]["creds"]["username"]
+        passkey = settings.get_Envi("REDDIT_PASSWORD")
+    username = settings.get_Envi("REDDIT_USER")
     if str(username).casefold().startswith("u/"):
         username = username[2:]
     try:
         reddit = praw.Reddit(
-            client_id=settings.config["reddit"]["creds"]["client_id"],
-            client_secret=settings.config["reddit"]["creds"]["client_secret"],
+            client_id=settings.get_Envi("REDDIT_CLIENT_ID"),
+            client_secret=settings.get_Envi("REDDIT_CLIENT_SECRET"),
             user_agent="Accessing Reddit threads",
             username=username,
             passkey=passkey,

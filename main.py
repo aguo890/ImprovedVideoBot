@@ -95,8 +95,8 @@ if __name__ == "__main__":
     settings.check_AllEnvi()
 
     if (
-        not settings.config["settings"]["tts"]["tiktok_sessionid"]
-        or settings.config["settings"]["tts"]["tiktok_sessionid"] == ""
+        not settings.get_Envi("TIKTOK_SESSIONID")
+        or settings.get_Envi("TIKTOK_SESSIONID") == ""
     ) and config["settings"]["tts"]["voice_choice"] == "tiktok":
         print_substep(
             "TikTok voice requires a sessionid! Check our documentation on how to obtain one.",
@@ -104,7 +104,8 @@ if __name__ == "__main__":
         )
         sys.exit()
     try:
-        if config["reddit"]["thread"]["post_id"]:
+        if (not config["reddit"]["thread"]["post_id"]
+            and not config["reddit"]["thread"]["post_id"] == ""):
             for index, post_id in enumerate(config["reddit"]["thread"]["post_id"].split("+")):
                 index += 1
                 print_step(
@@ -119,13 +120,16 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         shutdown()
     except ResponseException:
+        print_markdown(settings.get_Envi("REDDIT_USER"))
+        print_markdown(settings.get_Envi("REDDIT_PASSWORD"))
+        print_markdown(settings.get_Envi("TIKTOK_SESSIONID"))
         print_markdown("## Invalid credentials")
-        print_markdown("Please check your credentials in the config.toml file")
+        print_markdown("Please check your credentials in the environment variables!")
         shutdown()
     except Exception as err:
         config["settings"]["tts"]["tiktok_sessionid"] = "REDACTED"
         config["settings"]["tts"]["elevenlabs_api_key"] = "REDACTED"
-        config["settings"]["channel_name"] = "REDACTED"
+        config["settings"]["tiktok"]["channel_name"] = "REDACTED"
         print_step(
             f"Sorry, something went wrong with this version! Try again, and feel free to report this issue at GitHub or the Discord community.\n"
             f"Version: {__VERSION__} \n"
