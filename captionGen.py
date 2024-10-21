@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw, ImageFont
 from vosk import Model, KaldiRecognizer, SetLogLevel
 import argparse
 
+CUR_WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -163,7 +164,7 @@ def main(input_video_path, output_video_path, font_path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Add captions to video using Vosk and MoviePy.')
     parser.add_argument('input_video', type=str, help='Path to the input video file')
-    parser.add_argument('--font', type=str, default='/home/user/RedditVideoMakerBot-master/fonts/Rubik-Black.ttf', help='Path to the font file')
+    parser.add_argument('--font', type=str, default=f'{CUR_WORKING_DIR}/fonts/Rubik-Black.ttf', help='Path to the font file')
     args = parser.parse_args()
 
     input_video = args.input_video
