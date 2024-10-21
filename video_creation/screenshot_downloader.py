@@ -157,7 +157,7 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
                 "#SHORTCUT_FOCUSABLE_DIV > div:nth-child(7) > div > div > div > header > div > div._1m0iFpls1wkPZJVo38-LSh > button > i"
             ).click()  # Interest popup is showing, this code will close it
 
-        if lang:
+        if settings.config["reddit"]["thread"]["enable_translation"]:
             print_substep("Translating post...")
             texts_in_tl = translators.translate_text(
                 reddit_object["thread_title"],
@@ -180,7 +180,7 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
                 # zoom the body of the page
                 page.evaluate("document.body.style.zoom=" + str(zoom))
                 # as zooming the body doesn't change the properties of the divs, we need to adjust for the zoom
-                location = page.locator('[data-test-id="post-content"]').bounding_box()
+                location = page.locator('h1[slot="title"]').bounding_box()
                 for i in location:
                     location[i] = float("{:.2f}".format(location[i] * zoom))
                 page.screenshot(clip=location, path=postcontentpath)
@@ -226,17 +226,17 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
                 page.goto(f"https://new.reddit.com/{comment['comment_url']}")
 
                 # translate code
-
-                if settings.config["reddit"]["thread"]["post_lang"]:
-                    comment_tl = translators.translate_text(
-                        comment["comment_body"],
-                        translator="google",
-                        to_language=settings.config["reddit"]["thread"]["post_lang"],
-                    )
-                    page.evaluate(
-                        '([tl_content, tl_id]) => document.querySelector(`#t1_${tl_id}-comment-rtjson-content p`).textContent = tl_content',
-                        [comment_tl, comment["comment_id"]]
-                    )
+                if settings.config["reddit"]["thread"]["enable_translation"]:
+                    if settings.config["reddit"]["thread"]["post_lang"]:
+                        comment_tl = translators.translate_text(
+                            comment["comment_body"],
+                            translator="google",
+                            to_language=settings.config["reddit"]["thread"]["post_lang"],
+                        )
+                        page.evaluate(
+                            '([tl_content, tl_id]) => document.querySelector(`#t1_${tl_id}-comment-rtjson-content p`).textContent = tl_content',
+                            [comment_tl, comment["comment_id"]]
+                        )
                 try:
                     if settings.config["settings"]["zoom"] != 1:
                         # click on button to close replies so that they are not shown in the video
