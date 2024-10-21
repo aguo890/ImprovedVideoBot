@@ -32,8 +32,8 @@ Sample Results: [MyTikTokProfile](https://www.tiktok.com/@crazystorylord)
 ### Steps:
 1. Set up a virtual environment:
     ```bash
-    python3.12 -m venv venvDigger
-    source venvDigger/bin/activate
+    python3.12 -m venv envTikTokCreator
+    source envTikTokCreator/bin/activate
     ```   
 naming matter for the Automator.sh script 
 
@@ -143,7 +143,7 @@ Once you've tested each component, run the full flow with:
 
 To automate it, create a cron job:
 ```bash
-0 */7 * * * su user -c "/home/user/RedditVideoMakerBot-master/Automator.sh"
+0 */7 * * * su user -c "$(pwd)/Automator.sh"
 ```
 I recommend setting it to every 7 hours. The `Automator.sh` script also includes a built-in random delay between 2 minutes and 3 hours.
 
