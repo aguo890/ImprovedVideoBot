@@ -28,7 +28,8 @@ Sample Results: [MyTikTokProfile](https://www.tiktok.com/@crazystorylord)
 
 > [!WARNING]
 > Windows is not fully supported you will need to solve the Python dependency issues you occur, also istagrapi (the unofficial Instagram API used for uploading to Instagram is not available on windows)
-> to avoid problems you can use WSL 
+>
+>  To avoid problems you can use WSL, don`t get me wrong you can set-up the environment in Windows by please DO NOT open any issues in the repo if you are using Windows
 
 ### Supported Python Versions
 - Python 3.10 or 3.12
