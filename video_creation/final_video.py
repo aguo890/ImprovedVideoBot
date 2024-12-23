@@ -277,12 +277,14 @@ def make_final_video(
     title_img = create_fancy_thumbnail(title_template, title, font_color, padding)
 
     title_img.save(f"assets/temp/{reddit_id}/png/title.png")
-    image_clips.insert(
-        0,
-        ffmpeg.input(f"assets/temp/{reddit_id}/png/title.png")["v"].filter(
-            "scale", screenshot_width, -1
-        ),
-    )
+
+    if settings.config["settings"]["show_Reddit_Title"]:
+        image_clips.insert(
+            0,
+            ffmpeg.input(f"assets/temp/{reddit_id}/png/title.png")["v"].filter(
+                "scale", screenshot_width, -1
+            ),
+        )
 
     current_time = 0
     if settings.config["settings"]["storymode"]:
