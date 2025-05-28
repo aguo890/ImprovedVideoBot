@@ -1,6 +1,11 @@
 
 # Fully Automated Reddit Stories Video Generator & Poster to TikTok, Instagram Reels, and YouTube Shorts
 
+
+> ⚠️ **Notice:** This project is no longer actively maintained. It remains fully functional, and I'm happy to review and accept pull requests from the community.
+
+
+
 ## Introduction
 This repository contains a fully automated system that generates and posts Reddit stories to three major platforms: TikTok, Instagram Reels, and YouTube Shorts.
 
@@ -29,7 +34,7 @@ Sample Results: [MyTikTokProfile](https://www.tiktok.com/@crazystorylord)
 > [!WARNING]
 > Windows is not fully supported you will need to solve the Python dependency issues you occur, also istagrapi (the unofficial Instagram API used for uploading to Instagram is not available on windows)
 >
->  To avoid problems you can use WSL, don`t get me wrong you can set-up the environment in Windows by please DO NOT open any issues in the repo if you are using Windows
+>  To avoid problems you can use WSL, don`t get me wrong you can set-up the environment in Windows but please DO NOT open any issues in the repo if you are using Windows
 
 ### Supported Python Versions
 - Python 3.10 or 3.12
