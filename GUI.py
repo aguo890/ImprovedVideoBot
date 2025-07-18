@@ -1,6 +1,6 @@
 import webbrowser
 from pathlib import Path
-
+#full release
 # Used "tomlkit" instead of "toml" because it doesn't change formatting on "dump"
 import tomlkit
 from flask import (

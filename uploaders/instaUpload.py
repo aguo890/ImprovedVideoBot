@@ -2,7 +2,7 @@ import argparse
 from instagrapi import Client
 import configparser
 import os
-
+#full release
 def login(username, password):
     cl = Client()
     session_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'session.json')

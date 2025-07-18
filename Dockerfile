@@ -3,7 +3,7 @@ FROM python:3.10.14-slim
 RUN apt update
 RUN apt-get install -y ffmpeg
 RUN apt install python3-pip -y
-
+#full release
 RUN mkdir /app
 ADD . /app
 WORKDIR /app

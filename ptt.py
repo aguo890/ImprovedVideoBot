@@ -1,5 +1,5 @@
 import pyttsx3
-
+#full release
 engine = pyttsx3.init()
 voices = engine.getProperty("voices")
 for voice in voices:

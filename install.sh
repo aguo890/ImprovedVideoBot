@@ -1,5 +1,5 @@
 #!/bin/bash 
-
+#full release
 # If the install fails, then print an error and exit.
 function install_fail() {
     echo "Installation failed" 

@@ -11,7 +11,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 from vosk import Model, KaldiRecognizer, SetLogLevel
 import argparse
-
+#full release
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')

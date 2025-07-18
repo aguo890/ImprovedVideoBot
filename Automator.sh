@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#full release
 # Log file path
 LOG_FILE=~/RedditVideoMakerBot-master/logs/script_log.txt
 
